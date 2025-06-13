@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Drawing Games</title>
+  <link rel="stylesheet" href="style.css" />
+   <link rel="stylesheet" href="paint-style.css" />
+      
+  
+   
+</head>
+<body>
+
+ 
+  
+  <!-- Main Section -->
+  <main class="main-area">
+    <!-- Left Character and Buttons -->
+    <section class="side-left">
+      <img src="https://media.tenor.com/tjSYWojVHtkAAAAj/hello-hi.gif" class="character" alt="Game Character">
+      <div class="badge-container">
+         <div class="badge-container">
+      <div class="icons">
+        <img src="https://www.iconpacks.net/icons/2/free-apple-icon-3155-thumb.png" class="icon rotate-left" alt="Apple A Icon">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5qwRzUA8wv2d-RPdttONA35R315YiWl8nUQ&s" class="icon" alt="Baby Crayon Icon">
+        <img src="https://www.shutterstock.com/image-vector/vector-illustration-english-alphabet-abc-260nw-471770279.jpg" class="icon rotate-right" alt="ABC Cat Icon">
+      </div>
+<!-- Official Info Modal/Popup -->
+<div id="officialModal" class="modal hidden">
+  <div class="modal-content">
+    <button class="close-btn">×</button>
+    <h3>Official Info</h3>
+    <p>This is the official section content.</p>
+  </div>
+</div>
+
+<!-- Lucas & Friends Box (if not already present) -->
+<div id="appBox" class="hidden">
+  <!-- existing content of your "Lucas & Friends" box -->
+</div>
+
+    <!-- Top Tabs -->
+  <div class="top-tabs">
+   
+    
+    <button class="tab orange-tab" onclick="toggleParentBox()"> Parents</button>
+  
+    
+    
+  </div>
+        
+    </section>
+
+    <!-- Game Grid -->
+<section class="game-grid">
+  
+
+  <!-- Paint Game Card -->
+  <div class="game-card" onclick="window.open('https://jspaint.app/', '_blank')" title="Open Online Paint App (like MS Paint)">
+    <img src="https://is1-ssl.mzstatic.com/image/thumb/Purple113/v4/0f/1d/1f/0f1d1f6a-7eaf-06d0-0a23-cec2e0255963/AppIcon-0-1x_U007emarketing-0-85-220-6.png/256x256bb.jpg" alt="Paint" />
+    <p>Paint</p>
+    <small class="note">Classic paint app for pixel & brush drawing</small>
+      <small class="note">Draw now</small>
+  </div>
+<!-- Hidden Paint Box -->
+<div id="paintModal" class="paint-modal hidden">
+  <div class="paint-header">
+    <button onclick="closePaint()">✖</button>
+    <input type="color" id="colorPicker" value="#000000">
+    <input type="range" id="brushSize" min="1" max="20" value="5">
+    <button onclick="clearPaint()">Clear</button>
+    <button onclick="savePaint()">Save</button>
+
+    <!-- 🔽 Added Features -->
+    <select id="brushShape">
+      <option value="round">Round</option>
+      <option value="square">Square</option>
+    </select>
+
+    <button onclick="toggleEraser()">🧽 Eraser</button>
+    <button onclick="toggleGrid()">🔳 Grid</button>
+    <button onclick="toggleNeon()">✨ Neon</button>
+    <input type="file" id="uploadImage" accept="image/*" onchange="uploadToCanvas(event)">
+    <!-- 🔼 End of Added Features -->
+
+  </div>
+  <canvas id="paintCanvas"></canvas>
+</div>
+
+
+
+ <!-- Pencil Sketch Game Card -->
+  <div class="game-card" onclick="window.open('https://www.photopea.com/', '_blank')" title="Open Online Pencil Sketch/Drawing Tool">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTPwU1qZ2AnFcW4hYWfqXI8nMqPT9tOB1Qmng&s" alt="Pencil Sketch" />
+    <p>Pencil Sketch</p>
+    <small class="note">Sketch with pencil-style brushes & shading</small>
+     <small class="note"> Draw Now</small>
+  </div>
+
+  <!-- Hidden Pencil Sketch Modal -->
+<div id="pencilSketchModal" class="paint-modal hidden">
+  <div class="paint-header">
+    <button onclick="closePencilSketch()">✖</button>
+    <input type="color" id="sketchColor" value="#000000">
+    <input type="range" id="sketchBrush" min="1" max="10" value="2">
+    <button onclick="clearSketch()">Clear</button>
+    <button onclick="saveSketch()">Save</button>
+  </div>
+
+  <div class="sketch-gallery">
+    <p>Select a Pencil Sketch Image:</p>
+    <div class="image-row">
+      <!-- Existing Images -->
+      <img src="https://i.ytimg.com/vi/TK50ck4ZeCg/maxresdefault.jpg" onclick="loadSketchImage(this.src)">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_jXL9Rr9eoSZd5YLIV7Ms92LeJA02GYZF8A&s" onclick="loadSketchImage(this.src)">
+      <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSv4Hmzw1AgajLk-h1DqPXJxP2d9SuH-qmrKA&s" onclick="loadSketchImage(this.src)">
+      
+      <!-- New Drawing Images -->
+      <img src="https://www.drawinghowtos.com/wp-content/uploads/2021/08/Cartoon-Boy.png" onclick="loadSketchImage(this.src)">
+      <img src="https://www.drawinghowtos.com/wp-content/uploads/2020/08/easy-flower-drawing-step-10.png" onclick="loadSketchImage(this.src)">
+      <img src="https://www.drawinghowtos.com/wp-content/uploads/2022/05/draw-bird-6.png" onclick="loadSketchImage(this.src)">
+      <img src="https://www.drawinghowtos.com/wp-content/uploads/2020/07/how-to-draw-a-tree-step-7.png" onclick="loadSketchImage(this.src)">
+    </div>
+  </div>
+
+  <canvas id="sketchCanvas" width="800" height="500"></canvas>
+</div>
+
+
+ <!-- Color Splash Game Card -->
+<div class="game-card" onclick="launchGame('paint3d')" title="Open Color Splash Drawing Tool">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSQwZ31Ui3hSKmnVFVigm6qYfFCGVdaaz38JQ&s" alt="Color Splash" />
+  <p>Color Splash</p>
+  <small class="note">Create art with 3D-style effects and tools</small>
+  <small class="note">Draw now</small>
+</div>
+
+<!-- Color Splash Modal -->
+<div id="paint3dModal" class="paint-modal hidden">
+  <div class="paint3d-toolbar">
+    <div class="paint3d-controls">
+      <button class="close-btn" onclick="closePaint3D()">✖</button>
+      <label><strong>🎨 Color</strong>
+        <input type="color" id="paint3dColor" value="#3366ff" />
+      </label>
+      <label><strong>🖌️ Brush</strong>
+        <input type="range" id="paint3dBrush" min="5" max="60" value="20" />
+      </label>
+      <button onclick="clearPaint3D()">🧹 Clear</button>
+      <button onclick="savePaint3D()">💾 Save</button>
+      <a href="https://kleki.com/" target="_blank" class="external-link-btn">🌐 Open Online Color Splash</a>
+    </div>
+  </div>
+
+  <div class="paint3d-gallery">
+    <p class="paint3d-label">🖼️ Select a Color Splash Style Base:</p>
+    <div class="image-row">
+      <img src="https://img.freepik.com/free-vector/3d-illustration-cute-cartoon-rabbit_23-2150886976.jpg" onclick="loadPaint3DImage(this.src)">
+      <img src="https://img.freepik.com/free-vector/3d-flower-illustration-pastel-colors_23-2150367714.jpg" onclick="loadPaint3DImage(this.src)">
+      <img src="https://img.freepik.com/free-vector/cute-3d-cloud-illustration_23-2148995210.jpg" onclick="loadPaint3DImage(this.src)">
+    </div>
+  </div>
+
+  <div class="canvas-wrapper">
+    
+    <canvas id="paint3dCanvas" width="800" height="500"></canvas>
+
+    
+  </div>
+</div>
+
+
+
+       <!-- ✅ New: Procreate (iOS) Game Card -->
+  <div class="game-card" onclick="window.open('https://www.youidraw.com/apps/painter/')" title="Open Procreate (iOS)">
+    <img src="https://upload.wikimedia.org/wikipedia/en/9/9b/Procreate_icon.png" alt="Procreate iOS">
+    <p>Procreate (iOS)</p>
+    <small class="note">Powerful sketch, paint & illustration app on iOS</small>
+    <small class="note">Draw Now</small>
+    
+
+  </div>
+
+      <!-- Adobe Fresco Game Card -->
+<div class="game-card" onclick="window.open('http://bomomo.com/')" title="Open Adobe Fresco (iOS, Windows)">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRMCC2NGO6R5dQB8hct0Dct1rBethITPX2rBvRxFueh85RAPYdcJx2uwoOMl-o3R2ghjcs&usqp=CAU" alt="Adobe Fresco" />
+  <p>Adobe Fresco</p>
+  <small class="note">Draw, paint, and sketch with realistic brushes</small>
+  
+  
+
+</div>
+
+      <!-- Autodesk SketchBook Game Card -->
+<div class="game-card" onclick="window.open('https://www.autodraw.com/')" title="Open Autodesk SketchBook">
+  <img src="https://gamefromscratch.com/wp-content/uploads/2018/05/AutodeskSketchbook.jpg" alt="Autodesk SketchBook" />
+  <p>Autodesk SketchBook</p>
+  <small class="note">Professional-grade drawing app for creatives</small>
+ 
+  
+
+</div>
+<!-- ibis Paint X Game Card -->
+<div class="game-card" onclick="window.open('https://picsart.com/draw/')" title="Open ibis Paint X">
+  <img src="https://miro.medium.com/v2/resize:fit:1080/1*xoQ0X9pTdmsQCrYTcyh6gA.jpeg" alt="ibis Paint X" />
+  <p>ibis Paint X</p>
+  <small class="note">Popular anime-style drawing app with layers</small>
+
+  
+
+</div>
+
+    <!-- MediBang Paint Game Card -->
+<div class="game-card" onclick="window.open('https://sketch.io/sketchpad/')" title="Open MediBang Paint (Windows, Mac, iOS, Android)">
+  <img src="https://store-images.s-microsoft.com/image/apps.55924.13639153028428115.f50bd8ea-fe15-403f-a05b-a06839776421.11bb4670-5ed7-4b31-8ab2-1a251d476cae?h=210" alt="MediBang Paint" />
+  <p>MediBang Paint</p>
+  <small class="note">Free digital painting app with cloud sync</small>
+
+  
+
+</div>
+<!-- Corel Painter Game Card -->
+<div class="game-card" onclick="window.open('https://draw-chat.webpkgcache.com/doc/-/s/draw.chat/index.html')" title="Open Corel Painter (Windows, macOS)">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTOG8Nxl3x-ZHEgGAiRzkQpv96wVog0X4AfU0P4_qxq35Nk0uLSnqViSdxFv_P-PMikMeE&usqp=CAU" alt="Corel Painter" />
+  <p>Corel Painter</p>
+  <small class="note">Advanced natural media painting software</small>
+ 
+  
+
+</div>
+<!-- Clip Studio Paint Game Card -->
+<div class="game-card" onclick="window.open('https://excalidraw.com/')" title="Open Clip Studio Paint (Windows, macOS, iPad, Android)">
+  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQUu1xK2bBEGVNnGSAYr407ZIURo0qaK56DEA&s" alt="Clip Studio Paint" />
+  <p>Clip Studio Paint</p>
+  <small class="note">Industry-standard drawing tool for comics & illustration</small>
+
+  
+
+</div>
+
+<!-- Kids Doodle Game Card -->
+<div class="game-card" onclick="window.open('https://www.adobe.com/express/create/worksheet/drawing')" title="Open Kids Doodle App on Google Play">
+  <img src="https://play-lh.googleusercontent.com/YGlcya--Hc0xTHTBrS-FB4JJauKn3frAUsJEZA2LkO3IypuRX4-o9NnoxGN_gQYpjdg=w480-h960-rw" alt="Kids Doodle">
+  <p>Kids Doodle</p>
+  <small class="note">Fun color & draw app for kids</small>
+ 
+  
+</div>
+
+
+
+<!-- Paintastic Game Card -->
+<div class="game-card" onclick="window.open('https://magma.com/')" title="Open Paintastic: draw, color, paint on Google Play">
+  <img src="https://play-lh.googleusercontent.com/zDKDx8tQA6wl5WoZ5d5KAMBiAarsp7yH_zH5hvWIwbqKZ4RBdJhmW7IoZmS6Lvst7Q" alt="Paintastic">
+  <p>Paintastic</p>
+  <small class="note">Creative drawing app with brushes, stickers & text</small>
+ 
+  
+
+</div>
+
+
+
+<!-- Paintastic Game Card -->
+<a href="https://krita.org/en/" target="_blank" rel="noopener noreferrer" title="Open Paintastic: draw, color, paint on Google Play" class="game-card">
+  <img src="https://i.ytimg.com/vi/wanN-j0yCyQ/hqdefault.jpg" alt="Paintastic">
+  <p>noopener noreferrer</p>
+  <small class="note">Creative drawing app with brushes, stickers & text</small>
+ 
+  
+
+</a>
+
+
+<!-- Drawing Desk India (Official Website Link) -->
+<a href="https://www.youidraw.com/apps/painter/"_blank" rel="noopener noreferrer">
+  <div class="game-card">
+    <img src="https://i.pinimg.com/736x/f3/6a/07/f36a072488de1c7e0db54681be2b3d9b.jpg" alt="Drawing Desk India">
+    <p>Drawing Desk India</p>
+    <small class="note">Creative drawing app with brushes, stickers & text</small>
+   
+    
+
+  </div>
+</a>
+
+
+<!-- Drawing Book -->
+<a href="https://www.thecolor.com/" target="_blank" rel="noopener noreferrer">
+  <div class="game-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ8w1OaAka9IpCT8L5GH0TlMix3CQlDP_jm5A&s" alt="Drawing Book">
+    <p>Drawing Book</p>
+    <small class="note">Fun sketching and coloring app for kids</small>
+    
+    
+
+  </div>
+</a>
+
+
+
+<!-- Indian Art Drawing -->
+<a href="https://flockmod.com/" target="_blank" rel="noopener noreferrer">
+  <div class="game-card">
+    <img src="https://cdn.shopify.com/s/files/1/0365/5892/9965/files/madhubani_painting_480x480.jpg?v=1676061865" alt="Indian Art Drawing">
+    <p>Indian Art Drawing</p>
+    <small class="note">Explore traditional Indian art with fun drawing tools</small>
+  
+    
+
+  </div>
+</a>
+
+
+
+  </div>
+</a>
+
+<!-- SketchBook India -->
+<a href="https://magnapaint.com/" target="_blank" rel="noopener noreferrer">
+  <div class="game-card">
+    <img src="https://5.imimg.com/data5/ANDROID/Default/2022/11/QM/TA/YO/163084700/product-jpeg.jpg" alt="SketchBook India">
+    <p>SketchBook India</p>
+    <small class="note">Digital sketching app with creative drawing tools</small>
+   
+    
+
+  </div>
+</a>
+
+<!-- Coloring Games for Kids -->
+<a href=" https://createplay.crayola.com/" target="_blank" rel="noopener noreferrer">
+  <div class="game-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQFiw2c_h3cnOY3m9CVWd9eJCgnsSWFjyNCEg&s" alt="Coloring Games">
+    <p>Coloring Games</p>
+    <small class="note">Fun coloring activities for kids with vibrant palettes</small>
+   
+    
+
+  </div>
+</a>
+
+
+<a href="https://www.pixilart.com/draw" target="_blank" rel="noopener noreferrer">
+  <div class="game-card">
+    <img src="https://i.ytimg.com/vi/vQsfURYzpzo/sddefault.jpg" alt="Draw Rangoli">
+    <p>Draw Rangoli</p>
+    <small class="note">Step-by-step guide to create traditional Indian rangoli art</small>
+ 
+    
+
+  </div>
+</a>
+
+  </div>
+</a>
+
+<!-- Draw Indian Mehndi Designs -->
+<a href="https://aggie.io/" target="_blank" rel="noopener noreferrer">
+  <div class="game-card">
+    <img src="https://www.shutterstock.com/image-vector/mehandi-design-line-art-use-260nw-2617371511.jpg" alt="Draw Mehndi">
+    <p>Draw Mehndi</p>
+    <small class="note">Learn to draw Indian mehndi designs step-by-step</small>
+  
+    
+
+  </div>
+</a>
+
+<!-- Swadeshi Paint App -->
+<a href="https://www.fotor.com/features/photo-to-sketch/" target="_blank" rel="noopener noreferrer">
+  <div class="game-card">
+    <img src="https://images.squarespace-cdn.com/content/v1/61a76dee225b8d381c48c4f4/ef005e09-20ac-4b81-9eee-0485667b01fc/13.+Sri+Saraswati_Lithograph+on+paper+%28Kansaripara+Art+Studio%29_14.75+x+11.25+in_C.+1900+%28FILEminimizer%29.jpg" alt="Swadeshi Paint">
+    <p>Swadeshi Paint</p>
+    <small class="note">Made-in-India painting app for creative expression</small>
+    
+    
+  </div>
+</a>
+
+<!-- Magic Slate by ng-labs -->
+<a href="https://monica.im/image-tools/photo-to-sketch" target="_blank" rel="noopener noreferrer">
+  <div class="game-card">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcArlct3gp1i2QbtAR1nj0sB4OnIWaUnhHlQ&s" alt="Magic Slate">
+    <p>Magic Slate</p>
+    <small class="note">Simple digital slate for kids to practice writing and drawing</small>
+   
+    
+
+  </div>
+</a>
+
+<!-- Pencil Sketch Art Photo Editor -->
+<a href="https://pencilsketch.imageonline.co/index.php" target="_blank" rel="noopener noreferrer">
+  <div class="game-card">
+    <img src="https://pencilparkschoolofarts.com/wp-content/uploads/2025/01/pencil-artist-in-chennai-tamilnadu-india-6.jpg" alt="Pencil Sketch Art">
+    <p>Pencil Sketch Art</p>
+    <small class="note">Convert your photos into realistic pencil sketches</small>
+   
+    
+
+  </div>
+</a>
+
+
+<!-- Gift Modal -->
+<div id="giftModal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close-btn">×</span>
+    <h3>🎁 Gifts</h3>
+    <p>Here’s something special!</p>
+  </div>
+</div>
+
+<!-- Settings Modal -->
+<div id="settingsModal" class="modal hidden">
+  <div class="modal-content">
+    <span class="close-btn">×</span>
+    <h3>⚙️ Settings</h3>
+    <p>Adjust your preferences here.</p>
+  </div>
+</div>
+
+
+  <!-- Lucas & Friends Badge Section + Hidden App Box -->
+  
+
+  <!-- Parent Message Box (Initially Hidden) -->
+  <div class="parent-message-box" id="parentBox">
+    <div class="impact-banner">
+      <span class="banner-text">IMPACT WE CAN MAKE <em>TOGETHER</em></span>
+      <p class="subtext"> Parents</p>
+    </div>
+
+    <div class="message-content">
+      <p>
+        Each of us has a unique talent. I make apps. You may be an amazing teacher,
+        doctor, artist, etc. Like I'm sharing what I love for free, I hope I inspire
+        you to share your skills. Helping others makes you feel good and inspires
+        others. Consider the impact we can make together! Lucas & Friends aims to
+        inspire the good in people. Please support us by giving back to others in your
+        own way.
+      </p>
+      <p class="signature">
+        <strong>VIVEK</strong> (Founder of Lucas & Friends by RV AppStudios)
+      </p>
+    
+      
+  </div>
+  </div>
+<!-- Drawing Overlay Canvas -->
+<div id="drawingOverlay">
+  <canvas id="drawingCanvas"></canvas>
+  <button id="closeCanvas">❌ Close</button>
+</div>
+
+  <!-- Drawing Pad Modal -->
+<div id="drawingPadModal" class="drawing-modal">
+  <div class="drawing-header">
+    <span>🖌️ Drawing Pad</span>
+    <button onclick="closeDrawing()" class="close-btn">✖</button>
+  </div>
+  <div class="drawing-tools">
+    <label>Brush:</label>
+    <select id="brushType">
+      <option value="normal">Normal</option>
+      <option value="neon">Neon</option>
+      <option value="pencil">Pencil</option>
+    </select>
+    <input type="color" id="colorPicker" value="#000000" />
+    <input type="range" id="brushSize" min="1" max="30" value="5" />
+    <button onclick="clearCanvas()">🧹 Clear</button>
+  </div>
+  <canvas id="drawingCanvas" width="800" height="500"></canvas>
+</div>
+
+  
+
+  <script src="script.js"></script>
+</body>
+</html>
